@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/router";
 import MenuItem from '@/components/MenuItem';
 import Skeleton from '@/components/Skeleton';
+import Navbar from '@/components/NavBar';
+import {
+  selectTotalItems,
+  selectTotalPrice,
+} from "../redux/slice/basketSlice";
+import { useSelector } from "react-redux";
+
 
 interface Meals{
   category: string;
@@ -22,6 +29,9 @@ const details = () => {
     const [foods, setFoods] = useState<Meals[]>([]);
     const [menuTab, setMenuTab] = useState(`${foods.category}`)
     const [loading, setLoading] = useState(false)
+
+    const totalPrice = useSelector(selectTotalPrice);
+    const getAllItems = useSelector(selectTotalItems);
 
     useEffect(() => {
       fetchMeals();
@@ -62,8 +72,10 @@ const details = () => {
     };
 
     return (
+      
 
          <div className='bg-cover w-full h-full bg-no-repeat bg-bg_image'>
+          <Navbar total={totalPrice} count={getAllItems.length}/>
             {/* food Menu tab  */}
 
             <div className='max-w-[1640px] m-auto px-4 py-12'>

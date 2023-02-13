@@ -20,8 +20,8 @@ export default function RestaurantItem({filteredDataSource}:{filteredDataSource:
          key={item.id}
          >
          {/* Overlay */}
-         <div className='absolute w-full h-full bg-black/50 rounded-xl text-white'>
-           <p className='font-bold text-2xl px-2 pt-4'>{item.name}</p>
+         <div className='absolute w-full h-full bg-black/50 rounded-xl h2-white'>
+           <p className='font-bold h2-2xl px-2 pt-4'>{item.name}</p>
            <p className='px-2'>{item.phone}</p>
 
          <Link href={{
@@ -36,7 +36,7 @@ export default function RestaurantItem({filteredDataSource}:{filteredDataSource:
           }}
         >
            <button
-           className='border-white bg-white text-black mx-2 absolute bottom-4'>
+           className='border-white bg-white h2-black mx-2 absolute bottom-4'>
             Peça Agora
             </button>
             </Link>

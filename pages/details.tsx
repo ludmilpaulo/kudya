@@ -6,7 +6,7 @@ import Navbar from '@/components/NavBar';
 import {
   selectTotalItems,
   selectTotalPrice,
-} from "../redux/slice/basketSlice";
+} from "../redux/slices/basketSlice";
 import { useSelector } from "react-redux";
 
 
@@ -25,6 +25,7 @@ interface Meals{
 
 const details = () => {
   const router = useRouter();
+  const [ isPressed, setIsPressed ] = useState(false)
     const { restaurantId, image_url, name, address, phone } = router.query;
     const [foods, setFoods] = useState<Meals[]>([]);
     const [menuTab, setMenuTab] = useState(`${foods.category}`)
@@ -136,3 +137,7 @@ const details = () => {
 }
 
 export default details
+function setData(meals: any) {
+  throw new Error('Function not implemented.');
+}
+

@@ -22,7 +22,7 @@ const MenuItem = ({ resId, food, resName, resImage, meals, foods }: Meals) => {
   //const [foods, setFoods] = useState<Meals[]>(food);
   const [qty, setQty] = useState(0);
 
-  const [isPressed, setIsPressed] = useState();
+  const [isPressed, setIsPressed] = useState(false);
 
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
@@ -119,7 +119,7 @@ const MenuItem = ({ resId, food, resName, resImage, meals, foods }: Meals) => {
       }
       
     } catch (error) {
-      return true;
+     // return true;
       console.log("cabelo", error)
       
     }
@@ -150,7 +150,7 @@ const MenuItem = ({ resId, food, resName, resImage, meals, foods }: Meals) => {
         <FiPlusCircle onClick={quantityUp} size={40} color="#004AAD" />
       </div>
 
-      {isPressed && (
+      {qty >0 && (
         <>
           {match(food.id) ? (
             <div className="animate-bounce items-center">

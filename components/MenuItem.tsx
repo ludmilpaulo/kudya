@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems, updateBusket } from "../redux/slices/basketSlice";
-import {FaPlus, FaMinus} from "react-icons/fa"
 
 interface Meals {
-  foods: any;
+  meals: any;
   food: any;
   resImage: string;
   resName: string;
@@ -18,8 +18,14 @@ interface Meals {
   short_description: string;
 }
 
-const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
-  const [isPressed, setIsPressed] = useState(false);
+const MenuItem = ({ resId, food, resName, resImage, meals, foods }: Meals) => {
+  //const [foods, setFoods] = useState<Meals[]>(food);
+  const [qty, setQty] = useState(0);
+
+  const [isPressed, setIsPressed] = useState();
+
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
 
   const setTheQuantity = () => {
     const resIndex = cartItems.findIndex((item) => item.resName === resName);
@@ -37,27 +43,22 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
     }
   };
 
-  useEffect(() => {
-    setTheQuantity();
-  }, []);
-  const [qty, setQty] = useState(0);
-  const [restaurantId, setRestaurantId] = useState(resId);
-  const cartItems = useSelector(selectCartItems);
-  const dispatch = useDispatch();
-
   function quantityUp() {
-    // setIsPressed(!isPressed)
     setQty(qty + 1);
-   // setIsPressed(!isPressed);
+    setIsPressed(!isPressed);
   }
 
   function quantityDown() {
     if (qty != 1) {
-      // setIsPressed(!isPressed);
       setQty(qty - 1);
       setIsPressed(!isPressed);
     }
   }
+
+  useEffect(() => {
+    setTheQuantity();
+    //  setFoods(food);
+  }, []);
 
   const match = (id: any) => {
     const resIndex = cartItems.findIndex((item) => item.resName === resName);
@@ -72,89 +73,108 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
   };
 
   const handleAddRemove = (id: any) => {
-    const indexFromFood = foods.findIndex((x) => x.id === id);
-    const resIndex = cartItems.findIndex((item) => item.resName === resName);
-    const foodItem = foods[indexFromFood];
-    //foodItem.quantity = qty;
-    console.log(foodItem);
-
-    if (resIndex >= 0) {
-      const menuIndex = cartItems[resIndex].foods.findIndex(
-        (item) => item.id === id
-      );
-      if (menuIndex >= 0) {
-        let oldArrays = [...cartItems];
-        let oldfoods = [...oldArrays[resIndex].foods];
-        oldfoods.splice(menuIndex, 1);
-        oldArrays.splice(resIndex, 1);
-        let newArray = [
-          ...oldArrays,
-          { foods: oldfoods, resName, resImage, resId },
-        ];
-        dispatch(updateBusket(newArray));
+    try {
+      const indexFromFood = foods.findIndex((x) => x.id === id);
+      const resIndex = cartItems.findIndex((item) => item.resName === resName);
+      const foodItem = foods[indexFromFood];
+      foodItem.quantity = qty;
+      console.log("entrou", foodItem);
+  
+      if (resIndex >= 0) {
+        const menuIndex = cartItems[resIndex].foods.findIndex(
+          (item) => item.id === id
+        );
+        if (menuIndex >= 0) {
+          let oldArrays = [...cartItems];
+          let oldfoods = [...oldArrays[resIndex].foods];
+          oldfoods.splice(menuIndex, 1);
+          oldArrays.splice(resIndex, 1);
+          let newArray = [
+            ...oldArrays,
+            { foods: oldfoods, resName, resImage, resId },
+          ];
+          dispatch(updateBusket(newArray));
+        } else {
+          let oldArrays = [...cartItems];
+          let newFoodArray = [...oldArrays[resIndex].foods, foodItem];
+          oldArrays.splice(resIndex, 1);
+          let updatedResArray = [
+            ...oldArrays,
+            { foods: newFoodArray, resName, resImage, resId },
+          ];
+          dispatch(updateBusket(updatedResArray));
+        }
       } else {
         let oldArrays = [...cartItems];
-        let newFoodArray = [...oldArrays[resIndex].foods, foodItem];
-        oldArrays.splice(resIndex, 1);
-        let updatedResArray = [
+        let newResFoodArray = [
           ...oldArrays,
-          { foods: newFoodArray, resName, resImage, resId },
+          {
+            foods: [{ ...foodItem }],
+            resName,
+            resImage,
+            resId,
+          },
         ];
-        dispatch(updateBusket(updatedResArray));
+        dispatch(updateBusket(newResFoodArray));
       }
-    } else {
-      let oldArrays = [...cartItems];
-      let newResFoodArray = [
-        ...oldArrays,
-        {
-          foods: [{ ...foodItem }],
-          resName,
-          resImage,
-          resId,
-        },
-      ];
-      dispatch(updateBusket(newResFoodArray));
-    }
-  };
-  
-    return (
-        <div className="bg-transparent border border-gray-100 transition transform duration-700 hover:shadow-xl hover:scale-105 p-4 rounded-full relative"
-        >
-            <h1 className="bg-[#004AAD] border border-bg-[#004AAD] rounded-full text-gray-900 text-2xl font-bold text-center">{food.category}</h1>
-            <img  className='w-full h-[200px] object-cover rounded-full' src={food.image} alt={food.name} />
-            <div className="flex flex-col items-center my-3 space-y-2">
-                <h1 className="text-gray-900 text-lg">{food.name}</h1>
-                <FaPlus 
-                 onClick={() => quantityUp()}
-                className="text-gray-500 text-sm text-center" />{qty}
-                <FaMinus
-                onClick={() => quantityDown()}
-                />
-                <h2 className="text-gray-900 text-2xl font-bold">{food.price} Kz</h2>
-                <button className="bg-primary text-black px-8 py-2 focus:outline-none poppins rounded-full mt-24 transform transition duration-300 hover:scale-105" onClick={handleAddRemove}>Order Now</button>
-            </div>
-
-            {isPressed &&(
-
-              <div className="flex flex-col items-center my-3 space-y-2">
-          
-                <p className="text-gray-500 text-sm text-center">{food.quantity}</p>
-           
-                <button className="bg-primary text-black px-8 py-2 focus:outline-none poppins rounded-full mt-24 transform transition duration-300 hover:scale-105" onClick={handleAddRemove}>Order Now</button>
-            </div>
-
-              )}
-
-
-
-        </div>
-
-
-   
-
       
+    } catch (error) {
+      return true;
+      console.log("cabelo", error)
+      
+    }
+   
+  };
 
-    )
-}
+  return (
+    <div className="border shadow-lg rounded-lg hover:scale-105 duration-300">
+      <img
+        src={food?.image}
+        alt={food?.name}
+        className="w-full h-[200px] object-cover rounded-t-lg"
+      />
+      <div className="flex justify-between px-2 py-4">
+        <p className="font-bold">{food?.name}</p>
+        <p>
+          <span className="bg-[#004AAD] text-white p-1 rounded-full">
+            {food?.price} Kz
+          </span>
+        </p>
+      </div>
+      <div>
+        <p>{food?.short_description}</p>
+      </div>
+      <div className="flex justify-between items-center pb-3">
+        <FiMinusCircle onClick={quantityDown} size={40} color="#004AAD" />
+        {qty}
+        <FiPlusCircle onClick={quantityUp} size={40} color="#004AAD" />
+      </div>
 
-export default MenuItem
+      {isPressed && (
+        <>
+          {match(food.id) ? (
+            <div className="animate-bounce items-center">
+              <button
+                onClick={() => handleAddRemove(food.id)}
+                className="flex-row items-center bg-indigo-500 w-full h-25 opacity-100 ..."
+              >
+                Remover da Bandeja
+              </button>
+            </div>
+          ) : (
+            <div className="animate-bounce items-center">
+              <button
+                onClick={() => handleAddRemove(food.id)}
+                className="flex-row items-center bg-indigo-500 w-full h-25 opacity-100 ..."
+              >
+                Adicionar à bandeja
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
+export default MenuItem;

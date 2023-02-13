@@ -13,6 +13,3 @@ export default {
   activeTintColor: "#000",
   inActiveTintColor: "#AEAEAE",
 };
-
-
-

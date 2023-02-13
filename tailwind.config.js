@@ -8,9 +8,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'bg_image' : "url('../assets/bg.png')",
-      }
+        bg_image: "url('../assets/bg.png')",
+      },
     },
   },
   plugins: [],
-}
+};

@@ -1,5 +1,3 @@
-
-
 export const getAllCartFoods = (items: any[]) => {
   let allFoods: any[] = [];
   const foodsData = items.map((x) => x.foods);

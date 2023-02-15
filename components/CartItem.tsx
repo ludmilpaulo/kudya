@@ -14,6 +14,8 @@ const CartItems = () => {
 
   const dispatch = useDispatch();
 
+  console.log("All in the cart", allCartItems)
+
   const match = (id, resName) => {
     const resIndex = allCartItems.findIndex((item) => item.resName === resName);
     if (resIndex >= 0) {
@@ -65,9 +67,9 @@ const CartItems = () => {
             />
             <p
               className="absolute self-center p-white w-3/4 p-center font-bold p-xl"
-              numberOfLines={1}
+
             >
-              {item.resName}
+              {item.resName} no
             </p>
           </div>
           {item?.foods?.map((food) => (

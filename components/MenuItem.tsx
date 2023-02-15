@@ -18,7 +18,7 @@ interface Meals {
   short_description: string;
 }
 
-const MenuItem = ({ resId, food, resName, resImage, meals, foods }: Meals) => {
+const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
   //const [foods, setFoods] = useState<Meals[]>(food);
   const [qty, setQty] = useState(0);
 

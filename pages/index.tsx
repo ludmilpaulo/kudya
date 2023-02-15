@@ -18,6 +18,10 @@ import { MdFavorite, MdHelp } from "react-icons/md";
 import background from "../assets/bg.png";
 import RestaurantItem from "@/components/RestaurantItem";
 
+import {data } from "@/configs/data";
+import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
+
 interface Restaurant {
   id: number;
   name: string;
@@ -88,6 +92,7 @@ export default function Home() {
   return (
     <>
       <div className="bg-cover w-full h-full bg-no-repeat bg-bg_image">
+        <Hero resData={data} />
         <div className="max-w-[1640px] mx-auto flex justify-between items-center p-4">
           {/* Left side */}
           <div className="flex items-center">
@@ -179,6 +184,7 @@ export default function Home() {
           <RestaurantItem filteredDataSource={filteredDataSource} />
         </div>
       </div>
+      <Footer />
     </>
   );
 }

@@ -10,6 +10,13 @@ module.exports = {
       backgroundImage: {
         bg_image: "url('../assets/bg.png')",
       },
+      backgroundSize: {
+        'auto': 'auto',
+        'cover': 'cover',
+        'contain': 'contain',
+        '50%': '50%',
+        '16': '4rem',
+      },
     },
   },
   plugins: [],

@@ -55,9 +55,9 @@ function details() {
   };
 
   return (
-    <div>
+    <div className="bg-bg_image bg-cover bg-center bg-no-repeat h-screen md:h-screen">
       <Navbar total={totalPrice} count={getAllItems.length}/>
-      <div className="max-w-[1640px] m-auto px-4 py-12">
+      <div className="max-w-[1640px] m-auto px-4 py-12 bg-bg_image bg-cover bg-center bg-no-repeat h-screen md:h-screen">
         <h1 className="text-[#004AAD] font-bold text-4xl text-center">
           Top Rated Menu Items
         </h1>
@@ -87,7 +87,7 @@ function details() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12 bg-bg_image bg-cover bg-center bg-no-repeat h-screen md:h-screen">
           {foods?.map((food) => {
             return (
               <MenuItem

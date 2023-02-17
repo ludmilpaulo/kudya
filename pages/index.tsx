@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, logoutUser, selectUser } from "../redux/slices/authSlice";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -31,6 +33,22 @@ interface Restaurant {
 }
 
 export default function Home() {
+  const router = useRouter();
+  const user = useSelector(selectUser);
+
+  useEffect(() => {
+
+    console.log("user==>>", user)
+    if (user == null ){
+      
+     router.push('/JoinScreen');
+  
+    }
+  }, []);
+
+  
+
+
   const [restaurantData, setRestaurantData] = useState<Restaurant[]>([]);
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState<Restaurant[]>(
@@ -91,7 +109,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="bg-cover w-full h-full bg-no-repeat bg-bg_image">
+      <div className="bg-bg_image bg-cover bg-center bg-no-repeat h-screen md:h-screen">
         <Hero resData={data} />
         <div className="max-w-[1640px] mx-auto flex justify-between items-center p-4">
           {/* Left side */}

@@ -51,8 +51,8 @@ const Navbar = ({ total, count }: { total: any; count: any }) => {
         <div
           className={
             nav
-              ? "fixed top-0 left-0 w-[300px] h-screen bg-white z-10 duration-300"
-              : "fixed top-0 left-[-100%] w-[300px] h-screen bg-white z-10 duration-300"
+              ? "fixed top-0 left-0 w-[300px] h-screen bg-bg_image bg-cover bg-center bg-no-repeat md:h-screen z-10 duration-300"
+              : "fixed top-0 left-[-100%] w-[300px] h-screen bg-bg_image bg-cover bg-center bg-no-repeat md:h-screen z-10 duration-300"
           }
         >
           <AiOutlineClose

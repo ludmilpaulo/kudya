@@ -25,6 +25,9 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const cartItems = useSelector(selectCartItems);
+
+  let allCartItems = cartItems;
+
   const dispatch = useDispatch();
 
   const setTheQuantity = () => {
@@ -123,6 +126,27 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
     }
   };
 
+
+  const handleRemove = (id:any) => {
+    const resIndex = allCartItems.findIndex((item) => item.resName === resName);
+
+    if (resIndex >= 0) {
+      const menuIndex = allCartItems[resIndex].foods.findIndex(
+        (item) => item.id === id
+      );
+      if (menuIndex >= 0) {
+        let oldArrays = [...allCartItems];
+        let oldfoods = [...oldArrays[resIndex].foods];
+        oldfoods.splice(menuIndex, 1);
+        oldArrays.splice(resIndex, 1);
+        let newArray = oldfoods.length
+          ? [...oldArrays, { foods: oldfoods, resName, resImage }]
+          : oldArrays;
+        dispatch(updateBusket(newArray));
+      }
+    }
+  };
+
   return (
     <div className="border shadow-lg rounded-lg hover:scale-105 duration-300">
       <img
@@ -152,7 +176,7 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
           {match(food.id) ? (
             <div className="animate-bounce items-center">
               <button
-                onClick={() => handleAddRemove(food.id)}
+                onClick={() => handleRemove(food.id)}
                 className="flex-row items-center bg-indigo-500 w-full h-25 opacity-100 ..."
               >
                 Remover da Bandeja

@@ -1,17 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectCartItems, updateBusket } from "../redux/slices/basketSlice";
+import { logoutUser, selectUser } from "../redux/slices/authSlice";
 
 import colors from "../configs/colors";
 
 const CartItem = () => {
   const all = useSelector(selectCartItems);
 
+  const user = useSelector(selectUser);
+
+  const url = "https://www.sunshinedeliver.com";
+
+  const [username, setUsername] = useState();
+  const [userPhoto, setUserPhoto] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [userAddress, setUserAddress] = useState("");
+  const [userId, setUserId] = useState<any>();
+
+  const customer_avatar = `${userPhoto}`;
+  const customer_image = `${url}${customer_avatar}`;
+
+  console.log("resposan", userId);
+
   let allCartItems = all;
 
   const dispatch = useDispatch();
+
+  const pickUser = async () => {
+    let response = await fetch(
+      "https://www.sunshinedeliver.com/api/customer/profile/",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: userId,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setUserPhone(responseJson.customer_detais.phone);
+        setUserAddress(responseJson.customer_detais.address);
+        setUserPhoto(responseJson.customer_detais.avatar);
+      })
+      .catch((error) => {
+        // console.error(error);
+      });
+  };
+
+  useEffect(() => {
+
+    console.log("Usuario==>>", user)
+    pickUser();
+    setUserId(user?.user_id);
+    setUsername(user?.username);
+  }, [userPhone, userAddress, userId]);
+
 
   const match = (id, resName) => {
     const resIndex = allCartItems.findIndex((item) => item.resName === resName);
@@ -210,12 +260,12 @@ const CartItem = () => {
                   <div className="flex flex-col justify-start items-start flex-shrink-0">
                     <div className="flex justify-center  w-full  md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
                       <img
-                        src="https://i.ibb.co/5TSg7f6/Rectangle-18.png"
+                        src={customer_image}
                         alt="avatar"
                       />
                       <div className=" flex justify-start items-start flex-col space-y-2">
                         <p className="text-base font-semibold leading-4 text-left text-gray-800">
-                          David Kent
+                        {username}
                         </p>
                         <p className="text-sm leading-5 text-gray-600">
                           10 Previous Orders

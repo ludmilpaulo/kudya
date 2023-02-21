@@ -56,7 +56,7 @@ function details() {
 
   return (
     <div className="bg-bg_image bg-cover bg-center bg-no-repeat h-screen md:h-screen">
-      <Navbar total={totalPrice} count={getAllItems.length}/>
+      <Navbar total={totalPrice} count={getAllItems.length} />
       <div className="max-w-[1640px] m-auto px-4 py-12 bg-bg_image bg-cover bg-center bg-no-repeat h-screen md:h-screen">
         <h1 className="text-[#004AAD] font-bold text-4xl text-center">
           Top Rated Menu Items

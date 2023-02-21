@@ -20,7 +20,7 @@ import { MdFavorite, MdHelp } from "react-icons/md";
 import background from "../assets/bg.png";
 import RestaurantItem from "@/components/RestaurantItem";
 
-import {data } from "@/configs/data";
+import { data } from "@/configs/data";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 
@@ -37,17 +37,11 @@ export default function Home() {
   const user = useSelector(selectUser);
 
   useEffect(() => {
-
-    console.log("user==>>", user)
-    if (user == null ){
-      
-     router.push('/JoinScreen');
-  
+    console.log("user==>>", user);
+    if (user == null) {
+      router.push("/JoinScreen");
     }
   }, []);
-
-  
-
 
   const [restaurantData, setRestaurantData] = useState<Restaurant[]>([]);
   const [search, setSearch] = useState("");
@@ -193,8 +187,6 @@ export default function Home() {
             </nav>
           </div>
         </div>
-
-     
 
         <div className="max-w-[1640px] mx-auto p-4 py-12 grid md:grid-cols-3 gap-6">
           {/* Card */}

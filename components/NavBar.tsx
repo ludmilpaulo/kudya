@@ -34,10 +34,10 @@ const Navbar = ({ total, count }: { total: any; count: any }) => {
         {/* Cart button */}
         {!!count && (
           <Link href={"/cartScreen"}>
-        <button className="bg-black text-white h2-white hidden md:flex items-center py-2 rounded-full">
-          <BsFillCartFill size={20} className="mr-2" /> {total}Kz ({count})
-        </button>
-        </Link>
+            <button className="bg-black text-white h2-white hidden md:flex items-center py-2 rounded-full">
+              <BsFillCartFill size={20} className="mr-2" /> {total}Kz ({count})
+            </button>
+          </Link>
         )}
 
         {/* Overlay */}

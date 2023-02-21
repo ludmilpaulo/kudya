@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function SignupScreen() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div></div>;
 }
 
-export default SignupScreen
+export default SignupScreen;

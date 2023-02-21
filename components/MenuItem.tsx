@@ -79,7 +79,7 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
       const foodItem = foods[indexFromFood];
       foodItem.quantity = qty;
       console.log("entrou", foodItem);
-  
+
       if (resIndex >= 0) {
         const menuIndex = cartItems[resIndex].foods.findIndex(
           (item) => item.id === id
@@ -117,13 +117,10 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
         ];
         dispatch(updateBusket(newResFoodArray));
       }
-      
     } catch (error) {
-     // return true;
-      console.log("cabelo", error)
-      
+      // return true;
+      console.log("cabelo", error);
     }
-   
   };
 
   return (
@@ -150,7 +147,7 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
         <FiPlusCircle onClick={quantityUp} size={40} color="#004AAD" />
       </div>
 
-      {qty >0 && (
+      {qty > 0 && (
         <>
           {match(food.id) ? (
             <div className="animate-bounce items-center">

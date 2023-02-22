@@ -22,6 +22,7 @@ const CheckoutScreen = (props: Props) => {
 
 
   return (
+   
     <div><RestaurantMap/></div>
   )
 }

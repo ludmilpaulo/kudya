@@ -46,19 +46,18 @@ const RestaurantMap: NextPage = () => {
 
   return (
 
-    <div className='max-h-[500px] relative'>
-
-      
+    <div>
       <GoogleMap
         options={mapOptions}
         zoom={14}
         center={mapCenter}
         mapTypeId={google.maps.MapTypeId.ROADMAP}
        // mapContainerStyle='absolute w-full h-full text-gray-200 max-h-[500px] bg-black/40 flex flex-col justify-center'
-        mapContainerStyle={{ width: '2000px', height: '500px' }}
+        mapContainerStyle={{ width: '800px', height: '500px' }}
         onLoad={() => console.log('Map Component Loaded...')}
       />
       </div>
+    
 
   );
 };

@@ -12,7 +12,7 @@ import Hero from "@/components/Hero";
 import { selectCartItems, updateBusket } from "../redux/slices/basketSlice";
 import Navbar from "@/components/NavBar";
 
-const cartSreen = () => {
+const CartSreen = () => {
   const totalPrice = useSelector(selectTotalPrice);
   const getAllItems = useSelector(selectTotalItems);
   const all = useSelector(selectCartItems);
@@ -32,4 +32,4 @@ const cartSreen = () => {
   );
 };
 
-export default cartSreen;
+export default CartSreen;

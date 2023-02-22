@@ -40,6 +40,9 @@ export default function Home() {
     console.log("user==>>", user);
     if (user == null) {
       router.push("/JoinScreen");
+    }else{
+      router.push("/HomeScreen");
+
     }
   }, []);
 

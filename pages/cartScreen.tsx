@@ -10,6 +10,7 @@ import CartItem from "../components/CartItem";
 import Hero from "@/components/Hero";
 
 import { selectCartItems, updateBusket } from "../redux/slices/basketSlice";
+import Navbar from "@/components/NavBar";
 
 const cartSreen = () => {
   const totalPrice = useSelector(selectTotalPrice);
@@ -21,6 +22,7 @@ const cartSreen = () => {
 
   return (
     <div className="flex-1 bg-cover w-full h-full bg-no-repeat bg-bg_image">
+       <Navbar />
       <Hero resData={allCartItems} />
 
       <div className="flex-1">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   AiOutlineMenu,
@@ -11,8 +11,65 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { FaUserFriends, FaWallet } from "react-icons/fa";
 import { MdFavorite, MdHelp } from "react-icons/md";
 
+import { logoutUser, selectUser } from "../redux/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTotalItems, selectTotalPrice } from "@/redux/slices/basketSlice";
+
+
 const Navbar = ({ total, count }: { total: any; count: any }) => {
+  const user = useSelector(selectUser);
+
+  const totalPrice = useSelector(selectTotalPrice);
+  const getAllItems = useSelector(selectTotalItems);
+
+  const dispatch = useDispatch();
+
+  const url = "https://www.sunshinedeliver.com";
+
   const [nav, setNav] = useState(false);
+
+  const [username, setUsername] = useState();
+  const [userPhoto, setUserPhoto] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [userAddress, setUserAddress] = useState("");
+  const [userId, setUserId] = useState<any>();
+
+
+  const customer_avatar = `${userPhoto}`;
+  const customer_image = `${url}${customer_avatar}`;
+
+  console.log("resposan", userId);
+
+  const pickUser = async () => {
+    let response = await fetch(
+      "https://www.sunshinedeliver.com/api/customer/profile/",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: userId,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setUserPhone(responseJson.customer_detais.phone);
+        setUserAddress(responseJson.customer_detais.address);
+        setUserPhoto(responseJson.customer_detais.avatar);
+      })
+      .catch((error) => {
+        // console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    pickUser();
+    setUserId(user?.user_id);
+    setUsername(user?.username);
+  }, [userPhone, userAddress, userId]);
 
   return (
     <>
@@ -23,7 +80,7 @@ const Navbar = ({ total, count }: { total: any; count: any }) => {
             <AiOutlineMenu size={30} />
           </div>
           <h1 className="h2-2xl sm:h2-3xl lg:h2-4xl px-2">
-            Best <span className="font-bold">Eats</span>
+            {username} <span className="font-bold"></span>
           </h1>
           <div className="hidden lg:flex items-center bg-gray-200 rounded-full p-1 h2-[14px]">
             <p className="bg-black h2-white rounded-full p-2">Delivery</p>

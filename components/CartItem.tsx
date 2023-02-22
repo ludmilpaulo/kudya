@@ -67,11 +67,11 @@ const CartItem = () => {
   }, [userPhone, userAddress, userId]);
 
 
-  const match = (id, resName) => {
-    const resIndex = allCartItems.findIndex((item) => item.resName === resName);
+  const match = (id: any, resName: any) => {
+    const resIndex = allCartItems.findIndex((item: { resName: any; }) => item.resName === resName);
     if (resIndex >= 0) {
       const menuIndex = allCartItems[resIndex].foods.findIndex(
-        (item) => item.id === id
+        (item: { id: any; }) => item.id === id
       );
       if (menuIndex >= 0) return true;
       return false;
@@ -79,12 +79,12 @@ const CartItem = () => {
     return false;
   };
 
-  const handleRemove = (id, resName, resImage) => {
-    const resIndex = allCartItems.findIndex((item) => item.resName === resName);
+  const handleRemove = (id: any, resName: any, resImage: any) => {
+    const resIndex = allCartItems.findIndex((item: { resName: any; }) => item.resName === resName);
 
     if (resIndex >= 0) {
       const menuIndex = allCartItems[resIndex].foods.findIndex(
-        (item) => item.id === id
+        (item: { id: any; }) => item.id === id
       );
       if (menuIndex >= 0) {
         let oldArrays = [...allCartItems];
@@ -113,10 +113,10 @@ const CartItem = () => {
             </p>
           </div>
         )}
-        {allCartItems?.map((item) => (
+        {allCartItems?.map((item: { resName: boolean | React.Key | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | null | undefined; foods: any[]; }) => (
           <>
             <div
-              key={item.resName}
+        
               className="flex justify-start item-start space-y-2 flex-col "
             >
               <h1 className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9  text-gray-800">
@@ -133,18 +133,18 @@ const CartItem = () => {
                   <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">
                   Carrinho do cliente
                   </p>
-                  {item?.foods?.map((food) => (
+                  {item?.foods?.map((food: { image: string | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | null | undefined; short_description: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; price: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | null | undefined; quantity: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) => (
                     <div className="mt-4 md:mt-6 flex  flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full ">
                       <div className="pb-4 md:pb-8 w-full md:w-40">
                         <img
                           className="w-full hidden md:block"
                           src={food.image}
-                          alt={food.name}
+                          alt=""
                         />
                         <img
                           className="w-full md:hidden"
                           src={food.image}
-                          alt={food.name}
+                          alt=""
                         />
                       </div>
                       <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full  pb-8 space-y-4 md:space-y-0">

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactNode } from "react";
 import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems, updateBusket } from "../redux/slices/basketSlice";
 
 interface Meals {
+  foods : any;
   meals: any;
   food: any;
   resImage: string;
@@ -31,11 +32,11 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
   const dispatch = useDispatch();
 
   const setTheQuantity = () => {
-    const resIndex = cartItems.findIndex((item) => item.resName === resName);
+    const resIndex = cartItems.findIndex((item: { resName: string; }) => item.resName === resName);
 
     if (resIndex >= 0) {
       const menuIndex = cartItems[resIndex].foods.findIndex(
-        (item) => item.id === food.id
+        (item: { id: any; }) => item.id === food.id
       );
       if (menuIndex >= 0) {
         console.log("Menu Index => ", menuIndex);
@@ -64,10 +65,10 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
   }, []);
 
   const match = (id: any) => {
-    const resIndex = cartItems.findIndex((item) => item.resName === resName);
+    const resIndex = cartItems.findIndex((item: { resName: string; }) => item.resName === resName);
     if (resIndex >= 0) {
       const menuIndex = cartItems[resIndex].foods.findIndex(
-        (item) => item.id === id
+        (item: { id: any; }) => item.id === id
       );
       if (menuIndex >= 0) return true;
       return false;
@@ -77,15 +78,15 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
 
   const handleAddRemove = (id: any) => {
     try {
-      const indexFromFood = foods.findIndex((x) => x.id === id);
-      const resIndex = cartItems.findIndex((item) => item.resName === resName);
+      const indexFromFood = foods.findIndex((x: { id: any; }) => x.id === id);
+      const resIndex = cartItems.findIndex((item: { resName: string; }) => item.resName === resName);
       const foodItem = foods[indexFromFood];
       foodItem.quantity = qty;
       console.log("entrou", foodItem);
 
       if (resIndex >= 0) {
         const menuIndex = cartItems[resIndex].foods.findIndex(
-          (item) => item.id === id
+          (item: { id: any; }) => item.id === id
         );
         if (menuIndex >= 0) {
           let oldArrays = [...cartItems];
@@ -128,11 +129,11 @@ const MenuItem = ({ resId, food, resName, resImage, foods }: Meals) => {
 
 
   const handleRemove = (id:any) => {
-    const resIndex = allCartItems.findIndex((item) => item.resName === resName);
+    const resIndex = allCartItems.findIndex((item: { resName: string; }) => item.resName === resName);
 
     if (resIndex >= 0) {
       const menuIndex = allCartItems[resIndex].foods.findIndex(
-        (item) => item.id === id
+        (item: { id: any; }) => item.id === id
       );
       if (menuIndex >= 0) {
         let oldArrays = [...allCartItems];

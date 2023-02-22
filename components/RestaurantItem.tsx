@@ -52,7 +52,7 @@ export default function RestaurantItem({
           <img
             className="max-h-[160px] md:max-h-[200px] w-full object-cover rounded-xl"
             src={item.logo}
-            alt="/"
+            alt=""
           />
         </div>
       ))}
